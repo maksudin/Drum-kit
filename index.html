@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="jquery-3.4.1.min.js"></script>
+	<title>Drum kit</title>
+</head>
+<body>
+	<div id="drumRow">
+		<ul id="drumList">
+			<li id="drumLi" class="noselect" onclick="playSound('Q')">Q</li>
+			<li id="drumLi" class="noselect" onclick="playSound('W')">W</li>
+			<li id="drumLi" class="noselect" onclick="playSound('E')">E</li> 
+			<li id="drumLi" class="noselect" onclick="playSound('R')">R</li>
+			<li id="drumLi" class="noselect" onclick="playSound('T')">T</li>
+			<li id="drumLi" class="noselect" onclick="playSound('U')">U</li>
+			<li id="drumLi" class="noselect" onclick="playSound('I')">I</li>
+			<li id="drumLi" class="noselect" onclick="playSound('O')">O</li>
+			<li id="drumLi" class="noselect" onclick="playSound('P')">P</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+
+		function removeTransition(e) {
+			$("li:contains(" + Q + ")").css({
+				'background-color': 'white',
+				'color': 'white',
+				"font-size": "1.5em",
+				'transition': 'background-color 0.1s ease-in-out, font-size 0.1s ease-in-out'
+			})
+			// if (e.propertyName !== 'transform') return;
+			// e.target.classList.remove('playing');
+		}
+
+		$(document).ready(function() {
+			document.onkeydown = function(event) {
+				event = event || window.event;
+
+				if (event.keyCode == 'Q'.charCodeAt(0)) {
+					highlightKey('Q');
+					playSound('Q');
+
+				}
+				if (event.keyCode == 'W'.charCodeAt(0)) {
+					highlightKey('W');
+					playSound('W');
+				}
+				if (event.keyCode == 'E'.charCodeAt(0)) {
+					highlightKey('E');
+					playSound('E');
+				}
+				if (event.keyCode == 'R'.charCodeAt(0)) {
+					highlightKey('R');
+					playSound('R');
+				}
+				if (event.keyCode == 'T'.charCodeAt(0)) {
+					highlightKey('T');
+					playSound('T');
+				}
+				if (event.keyCode == 'U'.charCodeAt(0)) {
+					highlightKey('U');
+					playSound('U');
+				}
+				if (event.keyCode == 'I'.charCodeAt(0)) {
+					highlightKey('I');
+					playSound('I');
+				}
+				if (event.keyCode == 'O'.charCodeAt(0)) {
+					highlightKey('O');
+					playSound('O');
+				}
+				if (event.keyCode == 'P'.charCodeAt(0)) {
+					highlightKey('P');
+					playSound('P');
+				}
+			}
+		});
+
+		function highlightKey(key) {
+			$("li:contains(" + key + ")").css({
+				'background-color': 'blue',
+				'color': 'white',
+				"font-size": "1.5em",
+				'transition': 'background-color 0.1s ease-in-out, font-size 0.1s ease-in-out'
+			})
+
+			/*$("li:contains(" + key + ")").css({
+				'background-color': 'white',
+				'color': 'black',
+			})*/
+
+			var el = $("li:contains(" + key + ")");
+
+			console.log(el);
+			el.className += 'playing';
+
+			/*$(".playing").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
+				function() {
+					$("li:contains(" + key + ")").css({
+						'background-color': 'white',
+						'color': 'black',
+						"font-size": "1.5em",
+						'transition': 'background-color 0.1s ease-in-out, font-size 0.1s ease-in-out'
+					})
+				});
+
+			$("li:contains(" + key + ")").addClass('playing');
+			*/
+
+		}
+
+		function playSound(key) {
+			var audio;
+			switch(key)	{
+				case 'Q':
+				audio = new Audio('sounds/boom.wav');
+				break;
+
+				case "W":
+				audio = new Audio('sounds/clap.wav');
+				break;
+
+				case 'E':
+				audio = new Audio('sounds/hihat.wav');
+				break;
+
+				case 'R':
+				audio = new Audio('sounds/kick.wav');
+				break;
+
+				case 'T':
+				audio = new Audio('sounds/tink.wav');
+				break;
+
+				case 'U':
+				audio = new Audio('sounds/openhat.wav');
+				break;
+
+				case 'I':
+				audio = new Audio('sounds/ride.wav');
+				break;
+
+				case 'O':
+				audio = new Audio('sounds/snare.wav');
+				break;
+
+				case 'P':
+				audio = new Audio('sounds/tom.wav');
+				break;
+			}
+			audio.play();
+		}
+
+		const keys = Array.from(document.querySelectorAll('#drumLi'));
+		keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+	</script>
+</body>
+</html>
