@@ -4,35 +4,25 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="jquery-3.4.1.min.js"></script>
+	<script src="jquery.color.js"></script>
 	<title>Drum kit</title>
 </head>
 <body>
-	<div id="drumRow">
-		<ul id="drumList">
-			<li id="drumLi" class="noselect" onclick="playSound('Q')">Q</li>
-			<li id="drumLi" class="noselect" onclick="playSound('W')">W</li>
-			<li id="drumLi" class="noselect" onclick="playSound('E')">E</li> 
-			<li id="drumLi" class="noselect" onclick="playSound('R')">R</li>
-			<li id="drumLi" class="noselect" onclick="playSound('T')">T</li>
-			<li id="drumLi" class="noselect" onclick="playSound('U')">U</li>
-			<li id="drumLi" class="noselect" onclick="playSound('I')">I</li>
-			<li id="drumLi" class="noselect" onclick="playSound('O')">O</li>
-			<li id="drumLi" class="noselect" onclick="playSound('P')">P</li>
+	<div class="drumRow">
+		<ul>
+			<li class="drumLi noselect" onclick="playSound('Q')">Q</li>
+			<li class="drumLi noselect" onclick="playSound('W')">W</li>
+			<li class="drumLi noselect" onclick="playSound('E')">E</li> 
+			<li class="drumLi noselect" onclick="playSound('R')">R</li>
+			<li class="drumLi noselect" onclick="playSound('T')">T</li>
+			<li class="drumLi noselect" onclick="playSound('U')">U</li>
+			<li class="drumLi noselect" onclick="playSound('I')">I</li>
+			<li class="drumLi noselect" onclick="playSound('O')">O</li>
+			<li class="drumLi noselect" onclick="playSound('P')">P</li>
 		</ul>
 	</div>
 
 	<script type="text/javascript">
-
-		function removeTransition(e) {
-			$("li:contains(" + Q + ")").css({
-				'background-color': 'white',
-				'color': 'white',
-				"font-size": "1.5em",
-				'transition': 'background-color 0.1s ease-in-out, font-size 0.1s ease-in-out'
-			})
-			// if (e.propertyName !== 'transform') return;
-			// e.target.classList.remove('playing');
-		}
 
 		$(document).ready(function() {
 			document.onkeydown = function(event) {
@@ -79,36 +69,23 @@
 		});
 
 		function highlightKey(key) {
-			$("li:contains(" + key + ")").css({
-				'background-color': 'blue',
-				'color': 'white',
-				"font-size": "1.5em",
-				'transition': 'background-color 0.1s ease-in-out, font-size 0.1s ease-in-out'
-			})
 
-			/*$("li:contains(" + key + ")").css({
-				'background-color': 'white',
-				'color': 'black',
-			})*/
 
-			var el = $("li:contains(" + key + ")");
+			var selKey = jQuery("li:contains(" + key + ")");
 
-			console.log(el);
-			el.className += 'playing';
+			console.log(selKey);
 
-			/*$(".playing").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
-				function() {
-					$("li:contains(" + key + ")").css({
-						'background-color': 'white',
-						'color': 'black',
-						"font-size": "1.5em",
-						'transition': 'background-color 0.1s ease-in-out, font-size 0.1s ease-in-out'
-					})
+
+			jQuery("li:contains(" + key + ")").addClass('playing').animate({
+				"backgroundColor": "blue",
+				"color": "white"
+			}, 200, function() {
+				selKey.removeClass('playing');
+				selKey.css({
+					'background-color': 'white',
+					'color': 'black'
 				});
-
-			$("li:contains(" + key + ")").addClass('playing');
-			*/
-
+			});
 		}
 
 		function playSound(key) {
@@ -152,9 +129,6 @@
 			}
 			audio.play();
 		}
-
-		const keys = Array.from(document.querySelectorAll('#drumLi'));
-		keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 	</script>
 </body>
 </html>
